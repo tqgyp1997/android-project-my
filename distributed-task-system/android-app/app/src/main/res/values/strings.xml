@@ -1,0 +1,69 @@
+<resources>
+    <string name="app_name">闲鱼任务执行器</string>
+    
+    <!-- 主界面 -->
+    <string name="device_info">设备信息</string>
+    <string name="device_id">设备ID: %s</string>
+    <string name="device_name">设备名称: %s</string>
+    
+    <string name="server_connection">服务器连接</string>
+    <string name="server_url_hint">服务器地址</string>
+    <string name="connect">连接</string>
+    <string name="disconnect">断开</string>
+    <string name="connection_status">连接状态: %s</string>
+    <string name="connected">已连接</string>
+    <string name="disconnected">未连接</string>
+    <string name="connecting">连接中...</string>
+    
+    <string name="task_status">任务状态</string>
+    <string name="task_status_idle">空闲</string>
+    <string name="task_status_running">执行中</string>
+    <string name="completed_tasks">已完成任务: %d</string>
+    <string name="failed_tasks">失败任务: %d</string>
+    <string name="total_execution_time">总执行时间: %d秒</string>
+    
+    <string name="running_log">运行日志</string>
+    <string name="clear_log">清除</string>
+    <string name="settings">设置</string>
+    
+    <!-- 通知 -->
+    <string name="notification_title">闲鱼任务执行器</string>
+    <string name="notification_content">正在运行，等待任务...</string>
+    <string name="notification_task_running">正在执行任务: %s</string>
+    
+    <!-- 错误消息 -->
+    <string name="error_permission_required">需要授予权限才能正常使用</string>
+    <string name="error_server_url_empty">请输入服务器地址</string>
+    <string name="error_connection_failed">连接失败，请检查服务器地址和网络</string>
+    <string name="error_task_execution_failed">任务执行失败: %s</string>
+    
+    <!-- 成功消息 -->
+    <string name="success_connected">连接成功</string>
+    <string name="success_disconnected">已断开连接</string>
+    <string name="success_task_completed">任务完成: %s</string>
+    
+    <!-- 任务类型 -->
+    <string name="task_type_delist">下架任务</string>
+    <string name="task_type_collect">采集任务</string>
+    <string name="task_type_upload">上架任务</string>
+    
+    <!-- 任务状态 -->
+    <string name="task_progress_initializing">初始化中...</string>
+    <string name="task_progress_loading_website">正在访问网站...</string>
+    <string name="task_progress_processing">正在处理: %s</string>
+    <string name="task_progress_completed">任务完成</string>
+    <string name="task_progress_failed">任务失败</string>
+    
+    <!-- 设置 -->
+    <string name="settings_title">设置</string>
+    <string name="settings_server">服务器设置</string>
+    <string name="settings_device">设备设置</string>
+    <string name="settings_task">任务设置</string>
+    <string name="settings_log">日志设置</string>
+    
+    <!-- 其他 -->
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="retry">重试</string>
+    <string name="close">关闭</string>
+</resources>
