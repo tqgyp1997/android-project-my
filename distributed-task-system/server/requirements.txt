@@ -1,0 +1,28 @@
+# 分布式任务系统 - 服务端依赖
+# 创建时间: 2025-09-17
+
+# Web框架
+Flask==2.3.3
+Flask-CORS==4.0.0
+
+# WebSocket支持
+Flask-SocketIO==5.3.6
+python-socketio==5.8.0
+
+# 数据处理
+requests==2.31.0
+python-dateutil==2.8.2
+
+# 日志和工具
+loguru==0.7.2
+
+# 可选：Redis支持（用于任务队列）
+# redis==4.6.0
+
+# 可选：数据库支持
+# SQLAlchemy==2.0.21
+# sqlite3 # Python内置
+
+# 开发工具
+# pytest==7.4.2
+# pytest-cov==4.1.0
