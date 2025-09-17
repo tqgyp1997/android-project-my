@@ -1,0 +1,101 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: android-app
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+
+    - name: Cache Gradle packages
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('android-app/**/*.gradle*', 'android-app/**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Clean project
+      run: ./gradlew clean
+
+    - name: Build Debug APK
+      run: ./gradlew assembleDebug
+
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: xianyu-task-executor-apk
+        path: android-app/app/build/outputs/apk/debug/app-debug.apk
+        retention-days: 30
+        
+    - name: Create Release
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v1.0.${{ github.run_number }}
+        release_name: 闲鱼任务执行器 v1.0.${{ github.run_number }}
+        body: |
+          ## 📱 闲鱼任务执行器 Android APK
+          
+          ### 🚀 功能特性
+          - WebSocket实时通信
+          - 分布式任务执行
+          - 下架任务支持
+          - 后台服务运行
+          - Material Design界面
+          
+          ### 📋 安装说明
+          1. 下载APK文件到Android设备
+          2. 启用"未知来源"安装权限
+          3. 安装应用并授予必要权限
+          4. 配置服务器地址：http://您的电脑IP:1888
+          
+          ### 🔧 使用方法
+          1. 确保电脑和手机在同一WiFi网络
+          2. 启动分布式任务服务器（端口1888）
+          3. 在APP中连接服务器
+          4. 等待任务分发和执行
+          
+          **构建时间**: ${{ github.event.head_commit.timestamp }}
+          **提交ID**: ${{ github.sha }}
+        draft: false
+        prerelease: false
+        
+    - name: Upload Release Asset
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: android-app/app/build/outputs/apk/debug/app-debug.apk
+        asset_name: xianyu-task-executor-v1.0.${{ github.run_number }}.apk
+        asset_content_type: application/vnd.android.package-archive
